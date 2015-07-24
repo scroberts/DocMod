@@ -1,23 +1,30 @@
 #!/usr/bin/env python3
 
+# external modules
 import docmod
 import os
 import json
+
+# my modules
 import DCC
+import config as cf
 
 # This code takes a search criteria, defined in "docinfo", and searches
 # the DOORS document module (as stored in TraceTree) to find matches. 
 # It prints a report on all files found based on the list of attributes
 # in "docmodreport".
+# In setting search criteria it is possible to look for undefined
+# attributes by using '_UNASSIGNED' as the matching criteria.
+
             
-if os.path.isfile(docmod.tracetreefilepath + docmod.docmod_dict_file):
-    print('Found existing DocMod file: ', docmod.docmod_dict_file)
+if os.path.isfile(cf.tracetreefilepath + cf.docmod_dict_file):
+    print('Found existing DocMod file: ', cf.docmod_dict_file)
 else:
-    print('Creating DocMod file: ', docmod.docmod_dict_file)
-    docmod.create_docmod_file(docmod.docmod_dict_file)
+    print('Creating DocMod file: ', cf.docmod_dict_file)
+    docmod.create_docmod_file(cf.docmod_dict_file)
     
 # Open the document module
-fh = open(docmod.tracetreefilepath + docmod.docmod_dict_file,'r')
+fh = open(cf.tracetreefilepath + cf.docmod_dict_file,'r')
 dm = json.load(fh)
 fh.close()
 
@@ -67,7 +74,7 @@ docmodreport.append('dccStatusCheckDate')
 docmodreport.append('WIP-ParentDocumentNo')
 docmodreport.append('CRNumbers')
 
-s = DCC.login(DCC.dcc_url + DCC.dcc_login)
+s = DCC.login(cf.dcc_url + cf.dcc_login)
 
 for ref in reflist.items():
     print('looking for ', ref[0], ref[1])
