@@ -32,9 +32,10 @@ fh.close()
 reflist = {}
 
 docinfo = {}
-docinfo['dccDocNo'] = 'TMT.CTR.ICD.13.003'
-docinfo['dccDocStatus'] = 'LATEST'
-docinfo['CRNumbers'] = '_UNASSIGNED'
+# docinfo['dccDocNo'] = 'TMT.CTR.ICD.13.003'
+# docinfo['dccDocStatus'] = 'LATEST'
+# docinfo['CRNumbers'] = '_UNASSIGNED'
+docinfo['TMTPublished'] = 'True'
 reflist['ICD'] = docinfo
 
 # print(reflist)
@@ -83,8 +84,7 @@ for ref in reflist.items():
             print('Found Document Module Object #:', doc[0])
             docmod.print_report(docmodreport, doc[1])
          
-##          The following code prints all DCC information on the found files 
+#          The following code prints all DCC information on the found files 
    
-            dom = DCC.dom_prop_find(s, DCC.get_handle(doc[1]['dccDocHandleHyperlink']))
-            fd = DCC.read_dcc_doc_data(dom)
+            fd = DCC.getProps(s, DCC.get_handle(doc[1]['dccDocHandleHyperlink']), InfoSet = 'DocAll')
             DCC.print_doc_info(fd)
