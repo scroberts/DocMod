@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 
 # external modules
-import docmod
+import DocMod
 import os
 import json
 
 # my modules
 import DCC
-import config as cf
+import Config as CF
 
 # This code takes a search criteria, defined in "docinfo", and searches
 # the DOORS document module (as stored in TraceTree) to find matches. 
@@ -17,14 +17,14 @@ import config as cf
 # attributes by using '_UNASSIGNED' as the matching criteria.
 
             
-if os.path.isfile(cf.tracetreefilepath + cf.docmod_dict_file):
-    print('Found existing DocMod file: ', cf.docmod_dict_file)
+if os.path.isfile(CF.tracetreefilepath + CF.docmod_dict_file):
+    print('Found existing DocMod file: ', CF.docmod_dict_file)
 else:
-    print('Creating DocMod file: ', cf.docmod_dict_file)
-    docmod.create_docmod_file(cf.docmod_dict_file)
+    print('Creating DocMod file: ', CF.docmod_dict_file)
+    docmod.create_docmod_file(CF.docmod_dict_file)
     
 # Open the document module
-fh = open(cf.tracetreefilepath + cf.docmod_dict_file,'r')
+fh = open(CF.tracetreefilepath + CF.docmod_dict_file,'r')
 dm = json.load(fh)
 fh.close()
 
@@ -75,16 +75,16 @@ docmodreport.append('dccStatusCheckDate')
 docmodreport.append('WIP-ParentDocumentNo')
 docmodreport.append('CRNumbers')
 
-s = DCC.login(cf.dcc_url + cf.dcc_login)
+s = DCC.login(CF.dcc_url + CF.dcc_login)
 
 for ref in reflist.items():
     print('looking for ', ref[0], ref[1])
     for doc in dm.items():
-        if docmod.is_in_dict(ref[1],doc[1]):
+        if DocMod.is_in_dict(ref[1],doc[1]):
             print('Found Document Module Object #:', doc[0])
-            docmod.print_report(docmodreport, doc[1])
+            DocMod.print_report(docmodreport, doc[1])
          
 #          The following code prints all DCC information on the found files 
    
-            fd = DCC.getProps(s, DCC.get_handle(doc[1]['dccDocHandleHyperlink']), InfoSet = 'DocAll')
-            DCC.print_doc_info(fd)
+            fd = DCC.prop_get(s, DCC.get_handle(doc[1]['dccDocHandleHyperlink']), InfoSet = 'DocAll')
+            DCC.print_doc_all(fd)
