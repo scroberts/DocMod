@@ -87,4 +87,6 @@ for ref in reflist.items():
 #          The following code prints all DCC information on the found files 
    
             fd = DCC.prop_get(s, DCC.get_handle(doc[1]['dccDocHandleHyperlink']), InfoSet = 'DocAll')
+            fd['permissions'] = DCC.prop_get(s, DCC.get_handle(doc[1]['dccDocHandleHyperlink']), InfoSet = 'Perms')
             DCC.print_doc_all(fd)
+            DCC.print_perms(fd['permissions'])
