@@ -21,7 +21,7 @@ if os.path.isfile(CF.tracetreefilepath + CF.docmod_dict_file):
     print('Found existing DocMod file: ', CF.docmod_dict_file)
 else:
     print('Creating DocMod file: ', CF.docmod_dict_file)
-    docmod.create_docmod_file(CF.docmod_dict_file)
+    DocMod.create_docmod_file(CF.docmod_dict_file)
     
 # Open the document module
 fh = open(CF.tracetreefilepath + CF.docmod_dict_file,'r')
@@ -86,7 +86,7 @@ for ref in reflist.items():
          
 #          The following code prints all DCC information on the found files 
    
-            fd = DCC.prop_get(s, DCC.get_handle(doc[1]['dccDocHandleHyperlink']), InfoSet = 'DocAll')
-            fd['permissions'] = DCC.prop_get(s, DCC.get_handle(doc[1]['dccDocHandleHyperlink']), InfoSet = 'Perms')
-            DCC.print_doc_all(fd)
-            DCC.print_perms(fd['permissions'])
+#             fd = DCC.prop_get(s, DCC.get_handle(doc[1]['dccDocHandleHyperlink']), InfoSet = 'DocAll')
+#             fd['permissions'] = DCC.prop_get(s, DCC.get_handle(doc[1]['dccDocHandleHyperlink']), InfoSet = 'Perms')
+#             DCC.print_doc_all(fd)
+#             DCC.print_perms(fd['permissions'])
